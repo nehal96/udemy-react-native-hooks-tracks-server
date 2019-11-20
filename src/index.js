@@ -5,6 +5,7 @@ const keys = require("./config/dev.js");
 
 require("./models/User");
 
+const requireAuth = require("./middleware/requireAuth");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
@@ -24,8 +25,8 @@ mongoose.connection.on("error", error => {
   console.error("Error connecting to Mongo", error);
 });
 
-app.get("/", (req, res) => {
-  res.send("Hi there!");
+app.get("/", requireAuth, (req, res) => {
+  res.send(`Your email is ${req.user.email}`);
 });
 
 app.listen(3000, () => console.log("Listening on port 3000"));
