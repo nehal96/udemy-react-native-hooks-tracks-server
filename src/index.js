@@ -2,7 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const keys = require("./config/dev.js");
 
+const authRoutes = require("./routes/authRoutes");
+
 const app = express();
+
+app.use(authRoutes);
 
 mongoose.connect(keys.mongoUri, {
   useNewUrlParser: true,
