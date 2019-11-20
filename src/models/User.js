@@ -40,13 +40,13 @@ userSchema.methods.comparePassword = function(candidatePassword) {
   const user = this;
 
   return new Promise((resolve, reject) => {
-    bcrpyt.compare(candidatePassword, user.password, (err, isMatch) => {
+    bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
       if (err) {
         return reject(err);
       }
 
       if (!isMatch) {
-        return reject(err);
+        return reject(false);
       }
 
       resolve(true);
